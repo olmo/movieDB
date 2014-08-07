@@ -146,7 +146,7 @@ angular.module('core').config([
     $urlRouterProvider.otherwise('/');
     // Home state routing
     $stateProvider.state('home', {
-      url: '/',
+      url: '/home',
       templateUrl: 'modules/core/views/home.client.view.html'
     });
   }
@@ -182,7 +182,7 @@ angular.module('core').service('Menus', [function () {
     this.defaultRoles = ['user'];
     // Define the menus object
     this.menus = {};
-    // A private function for rendering decision 
+    // A private function for rendering decision
     var shouldRender = function (user) {
       if (user) {
         for (var userRoleIndex in user.roles) {
@@ -305,7 +305,7 @@ angular.module('core').service('Menus', [function () {
       return this.menus[menuId];
     };
     //Adding the topbar menu
-    this.addMenu('topbar');
+    this.addMenu('topbar', true);
   }]);'use strict';
 // Configuring the Articles module
 angular.module('movies').run([
@@ -323,7 +323,7 @@ angular.module('movies').config([
   function ($stateProvider) {
     // Movies state routing
     $stateProvider.state('listMovies', {
-      url: '/movies',
+      url: '/',
       templateUrl: 'modules/movies/views/list-movies.client.view.html'
     }).state('createMovie', {
       url: '/movies/create',
