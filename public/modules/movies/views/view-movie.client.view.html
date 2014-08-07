@@ -1,0 +1,46 @@
+<div class="offset" style="padding-top: 80px;"></div>
+
+<div class="light-wrapper"  data-ng-controller="MoviesController" data-ng-init="findOne()">
+    <div class="container inner">
+      <div class="section-title text-center">
+        <h3>{{movie.title}}</h3>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-5 rp20">
+          <figure><img src="http://image.tmdb.org/t/p/w500{{movie.poster}}" alt=""></figure>
+        </div>
+        <!-- /.span3 -->
+        <div class="col-sm-7">
+            <p>Dirección <a ng-repeat="person in movie.director" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+            <p>Guión <a ng-repeat="person in movie.screenplay" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+            <p>Música <a ng-repeat="person in movie.music" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+            <p>Fotografía <a ng-repeat="person in movie.photography" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+            <p>Producción <a ng-repeat="person in movie.producer" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+            <p>Genero <a ng-repeat="person in movie.genres" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+            <p>Reparto <a ng-repeat="person in movie.cast" ng-href="/#!/people/{{person.id}}">{{person.name}}{{$last ? '' : ', '}}</a></p>
+          <p>{{movie.overview}}</p>
+          <h3>Edición</h3>
+          <ul class="social">
+            <li><a class="btn btn-primary btn-xs" href="/#!/movies/{{movie._id}}/edit"><i class="glyphicon glyphicon-edit"></i></a></li>
+            <li><a href="#"><i class="icon-s-facebook"></i></a></li>
+            <li><a href="#"><i class="icon-s-pinterest"></i></a></li>
+            <li><a href="#"><i class="icon-s-linkedin"></i></a></li>
+            <li><a href="#"><i class="icon-s-flickr"></i></a></li>
+            <li><a href="#"><i class="icon-s-instagram"></i></a></li>
+          </ul>
+          <div class="pull-right">
+            <a class="btn btn-primary" href="/#!/movies/{{movie._id}}/edit">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn btn-primary" data-ng-click="remove();">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </div>
+        </div>
+        <!-- /.span9 -->
+      </div>
+      <!-- /.row -->
+
+    </div>
+  </div>

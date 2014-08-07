@@ -1,0 +1,43 @@
+<section data-ng-controller="MoviesController">
+    <div class="page-header">
+        <h1>New Movie</h1>
+    </div>
+    <div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="searchTmdb()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="name">Title</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="query" id="query" class="form-control" placeholder="Title" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+  </div>
+        <div class="row">
+          <div class="col-md-3" data-ng-repeat="movie in searchMovies">
+            <a href=""><img src="http://image.tmdb.org/t/p/w154{{movie.poster_path}}" alt="..." class="img-thumbnail" ng-click="addMovie({{movie.id}})"></a>
+            <h4>{{movie.title}}</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="list-group">
+                <a data-ng-repeat="movie in searchMovies" class="list-group-item">
+
+            <h4 class="list-group-item-heading" data-ng-bind="movie.title"></h4>
+              </a>
+          </div>
+          <div class="alert alert-warning text-center" data-ng-hide="!movies.$resolved || movies.length">
+            No Movies yet, why don't you <a href="/#!/movies/create">create one</a>?
+          </div>
+  </div>
+</section>

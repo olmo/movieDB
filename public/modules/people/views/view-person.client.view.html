@@ -1,0 +1,39 @@
+<div class="offset" style="padding-top: 80px;"></div>
+
+<div class="light-wrapper"  data-ng-controller="PeopleController" data-ng-init="findOne()">
+	<div class="container inner">
+	<div class="section-title text-center">
+		<h3>{{person.name}}</h3>
+
+	</div>
+	<div class="row">
+		<div class="col-sm-5 rp20">
+		<figure><img src="http://image.tmdb.org/t/p/h632{{person.photo}}" alt=""></figure>
+		</div>
+		<!-- /.span3 -->
+		<div class="col-sm-7">
+			<p>{{person.biography}}</p>
+			<h3>Edición</h3>
+			<ul class="social">
+				<li><a class="btn btn-primary btn-xs" href="/#!/movies/{{movie._id}}/edit"><i class="glyphicon glyphicon-edit"></i></a></li>
+				<li><a href="#"><i class="icon-s-facebook"></i></a></li>
+				<li><a href="#"><i class="icon-s-pinterest"></i></a></li>
+				<li><a href="#"><i class="icon-s-linkedin"></i></a></li>
+				<li><a href="#"><i class="icon-s-flickr"></i></a></li>
+				<li><a href="#"><i class="icon-s-instagram"></i></a></li>
+			</ul>
+			<div class="pull-right">
+				<a class="btn btn-primary" href="/#!/movies/{{movie._id}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+				</a>
+				<a class="btn btn-primary" data-ng-click="remove();">
+				<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</div>
+		</div>
+		<!-- /.span9 -->
+	</div>
+	<!-- /.row -->
+
+	</div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "name": "moviedb",
+  "version": "0.0.1",
+  "description": "movie database",
+  "dependencies": {
+    "bootstrap": "~3",
+    "angular": "~1.2",
+    "angular-resource": "~1.2",
+    "angular-mocks": "~1.2",
+    "angular-cookies": "~1.2",
+    "angular-animate": "~1.2",
+    "angular-touch": "~1.2",
+    "angular-sanitize": "~1.2",
+    "angular-bootstrap": "~0.11.0",
+    "angular-ui-utils": "~0.1.1",
+    "angular-ui-router": "~0.2.10",
+    "bootstrap-hover-dropdown": "~2.0.11",
+    "isotope": "~2.0.0",
+    "fancybox": "~2.1.5",
+    "fitvids": "~1.1.0",
+    "jquery-sticky": "*",
+    "classie": "~1.0.1"
+  }
+}

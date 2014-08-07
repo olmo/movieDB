@@ -1,0 +1,15 @@
+<div class="offset" style="padding-top: 80px;"></div>
+<div class="filter dark-wrapper container">asdf</div>
+
+<div class="grid-portfolio fix-portfolio" data-ng-controller="MoviesController" data-ng-init="find()">
+    <div class="container inner">
+           <ul class="items" >
+               <li data-ng-repeat="movie in movies" class="item" isotope="">
+        		  <figure><a data-ng-href="#!/movies/{{movie._id}}">
+        			<div class="text-overlay">
+        			  <div class="info">{{movie.title}}</div>
+        			</div>
+        			<img ng-src="http://image.tmdb.org/t/p/w500{{movie.poster}}" alt=""> </a></figure>
+        		</li>
+           </ul>
+</div>
