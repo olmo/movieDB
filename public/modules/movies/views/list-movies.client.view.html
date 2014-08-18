@@ -1,15 +1,61 @@
-<div class="offset" style="padding-top: 80px;"></div>
-<div class="filter dark-wrapper container">asdf</div>
+<div data-ng-controller="MoviesController">
+<!--<div class="offset" style="padding-top: 80px;"></div>-->
+    <div class="page-title" style="background-image: url(images/header1.jpg);">
+        <div class="overlay"></div>
 
-<div class="grid-portfolio fix-portfolio" data-ng-controller="MoviesController" data-ng-init="find()">
-    <div class="container inner">
-           <ul class="items" >
-               <li data-ng-repeat="movie in movies" class="item" isotope="">
-        		  <figure><a data-ng-href="#!/movies/{{movie._id}}">
-        			<div class="text-overlay">
-        			  <div class="info">{{movie.title}}</div>
-        			</div>
-        			<img ng-src="http://image.tmdb.org/t/p/w500{{movie.poster}}" alt=""> </a></figure>
-        		</li>
-           </ul>
+    </div>
+    <div class="filter dark-wrapper container">
+        <form class="form-inline" data-ng-submit="find()" novalidate>
+        <ul>
+            <li>
+                <div class="form-group" data-ng-show="authentication.user">
+                    <label class="control-label" for="seen">Vistas</label>
+                    <select class="form-control" id="seen" ng-model="seenVal" ng-options="s.name for s in seenVals track by s.value" style="margin-bottom: 0px;margin-right: 15px;" ng-change="find()">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="genre">Género</label>
+                    <select class="form-control" id="genre" ng-model="genre" ng-options="s.name for s in genres track by s._id" style="margin-bottom: 0px;margin-right: 15px;" ng-change="find()">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="country">País</label>
+                    <select class="form-control" id="country" ng-model="country" ng-options="s.name for s in countries track by s.value" style="margin-bottom: 0px;margin-right: 15px;" ng-change="find()">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="order">Ordenar</label>
+                    <select class="form-control" id="order" ng-model="order" ng-options="s.name for s in orderTypes track by s.value" style="margin-bottom: 0px;margin-right: 15px;" ng-change="find()"></select>
+                </div>
+            </li>
+            <!--<li>-->
+                <!--<div class="btn-group pull-right">-->
+                    <!--<button type="button" class="btn btn-default">Middle</button>-->
+                    <!--<button type="button" class="btn btn-default">Right</button>-->
+                <!--</div>-->
+            <!--</li>-->
+        </ul>
+
+        </form>
+    </div>
+
+    <div class="grid-portfolio fix-portfolio">
+        <div class="container" style="padding-bottom: 70px;">
+            <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-small"></pagination>
+            <ul class="items" >
+               <li data-ng-repeat="movie in movies" class="item" isotope="" >
+                  <figure><a data-ng-href="#!/movies/{{movie._id}}">
+                    <div class="text-overlay">
+                      <div class="info">{{movie.title}}</div>
+                    </div>
+                    <img ng-src="http://image.tmdb.org/t/p/w500{{movie.poster}}" alt=""> </a></figure>
+                </li>
+            </ul>
+            <pagination num-pages="noOfPages" current-page="currentPage" class="pagination-small"></pagination>
+        </div>
+
+    </div>
 </div>

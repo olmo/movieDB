@@ -18,9 +18,11 @@ var MovieSchema = new Schema({
 	title: { type: String, default: '', required: 'Please fill Movie title', trim: true 	},
 	title_o: { type: String, default: '', required: 'Please fill original title', trim: true },
 	poster: { type: String, default: '', required: 'Please fill poster', trim: true },
+    backdrop: { type: String },
 	overview: { type: String, default: '', required: 'Please fill overview', trim: true },
 	runtime: { type: Number },
 	release_date: { type: Date, default: '', required: 'Please fill release date' },
+    countries: [{type: String}],
 
 	genres: [ genreSchema ],
 	cast: [ crewSchema ],
@@ -37,7 +39,8 @@ var MovieSchema = new Schema({
 	sound_editor: [ crewSchema ],
 	special_effects: [ crewSchema ],
 
-	created: { type: Date, default: Date.now }
+	created: { type: Date, default: Date.now },
+    seen: [{type: Schema.ObjectId}]
 });
 
 mongoose.model('Movie', MovieSchema);

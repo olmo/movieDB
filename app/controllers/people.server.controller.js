@@ -95,7 +95,7 @@ exports.delete = function(req, res) {
 /**
  * List of People
  */
-exports.list = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').exec(function(err, people) {
+exports.list = function(req, res) { Person.find().sort('name').populate('user', 'displayName').exec(function(err, people) {
 		if (err) {
 			return res.send(400, {
 				message: getErrorMessage(err)

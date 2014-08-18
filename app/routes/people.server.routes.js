@@ -7,12 +7,12 @@ module.exports = function(app) {
 	// People Routes
 	app.route('/people')
 		.get(people.list)
-		.post(users.requiresLogin, people.create);
+		.post(users.requiresLogin, users.hasAuthorization(['admin']), people.create);
 
 	app.route('/people/:personId')
 		.get(people.read)
-		.put(users.requiresLogin, people.hasAuthorization, people.update)
-		.delete(users.requiresLogin, people.hasAuthorization, people.delete);
+		.put(users.requiresLogin, users.hasAuthorization(['admin']), people.update)
+		.delete(users.requiresLogin, users.hasAuthorization(['admin']), people.delete);
 
 	// Finish by binding the Person middleware
 	app.param('personId', people.personByID);

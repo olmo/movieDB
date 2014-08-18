@@ -6,6 +6,6 @@ angular.module('people').run(['Menus',
 		// Set top bar menu items
 		Menus.addMenuItem('topbar', 'People', 'people', 'dropdown', '/people(/create)?');
 		Menus.addSubMenuItem('topbar', 'people', 'List People', 'people');
-		Menus.addSubMenuItem('topbar', 'people', 'New Person', 'people/create');
+		Menus.addSubMenuItem('topbar', 'people', 'New Person', 'people/create', 'people/create', false, ['admin']);
 	}
 ]);

@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 	_ = require('lodash');
 
 var events = require('events');
-var eventEmitter = new events.EventEmitter();
+
 /**
  * Get the error message from error object
  */
@@ -67,6 +67,7 @@ exports.searchTmdb = function(req, res) {
 exports.addFromTmdb = function(req, res) {
 	var request = require('request');
 	var movie = new Movie();
+    var eventEmitter = new events.EventEmitter();
 
 	request.get({
 		url:     'http://api.themoviedb.org/3/movie/'+req.body.id+'?language=es&api_key=d87ab3d9f54fbc7bb6c7bee9a20c8788',
@@ -83,7 +84,13 @@ exports.addFromTmdb = function(req, res) {
 		movie.overview = data.overview;
 		movie.release_date = data.release_date;
 		movie.poster = data.poster_path;
+        movie.backdrop = data.backdrop_path;
 		movie.runtime = data.runtime;
+
+
+        data.production_countries.forEach(function(country){
+            movie.countries.push(country.iso_3166_1);
+        });
 
 		var genreCount = data.genres.length;
 		data.genres.forEach(function(genre) {
@@ -280,13 +287,47 @@ exports.delete = function(req, res) {
 /**
  * List of Movies
  */
-exports.list = function(req, res) { Movie.find().sort('-created').populate('user', 'displayName').exec(function(err, movies) {
+exports.list = function(req, res) {
+    var query = {};
+
+    if(req.query.seen == 1){
+        query = {seen: {'$ne': req.user.id}};
+    }
+    else if(req.query.seen == 2){
+        query = {seen: req.user.id};
+    }
+
+    if(req.query.genre){
+        query['genres.id'] = req.query.genre;
+    }
+
+    if(req.query.country){
+        query.countries = req.query.country;
+    }
+
+    var order = '-created';
+    if(req.query.order){
+        order = req.query.order;
+    }
+
+    var skip = req.query.numPerPage * (req.query.page-1);
+    var limit = req.query.numPerPage;
+
+    Movie.find(query).sort(order).skip(skip).limit(limit).exec(function(err, movies) {
 		if (err) {
 			return res.send(400, {
 				message: getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(movies);
+            Movie.find(query).count().exec(function(err, count){
+                if (err) {
+                    return res.send(400, {
+                        message: getErrorMessage(err)
+                    });
+                } else {
+                    res.jsonp({count: count, movies: movies});
+                }
+            });
 		}
 	});
 };
@@ -300,6 +341,33 @@ exports.movieByID = function(req, res, next, id) { Movie.findById(id).populate('
 		req.movie = movie ;
 		next();
 	});
+};
+
+exports.seen = function(req, res) {
+    var movie = req.movie ;
+
+    var isInArray = movie.seen.some(function (user) {
+        return user.equals(req.user.id);
+    });
+
+    var query, update;
+
+    if(isInArray){
+        query   = {_id: movie._id};
+        update  = {'$pull': {'seen': req.user.id}};
+    }
+    else{
+        query   = {_id: movie._id, seen: {'$ne': req.user.id}};
+        update  = {'$push': {'seen': req.user.id}};
+    }
+
+    Movie.update(query, update, function(err, movie){
+        res.jsonp(movie);
+    });
+
+
+
+
 };
 
 /**
